@@ -1,1 +1,1 @@
-# style-perf-tests
+Style system performance tests.
