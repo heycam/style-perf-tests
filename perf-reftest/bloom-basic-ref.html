@@ -7,19 +7,10 @@ window.onload = function() {
   document.head.appendChild(build_rule("span > div", 10000, '{ color: blue; } '));
   let dom = build_dom(5000, "div");
 
-  let start = performance.now();
+  perf_start();
   document.body.appendChild(dom);
   window.foo = window.getComputedStyle(document.body).color;
-  let end = performance.now();
-
-  // when running in talos report results; when running outside talos just alert
-  if (window.tpRecordTime) {
-    window.tpRecordTime(end - start, start);
-  } else {
-    console.log(end);
-    console.log(start);
-    alert("Result: " + (end - start).toFixed(2) + " (ms)");
-  }
+  perf_finish();
 }
     </script>
   </head>
