@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="util.js"></script>
+    <script>
+window.onload = function() {
+  document.head.appendChild(build_rule("body > div > div > div", 1000, '{ color: blue; } '));
+  let dom = build_dom(5000, "div");
+
+  perf_start();
+  document.body.appendChild(dom);
+  window.foo = window.getComputedStyle(document.body).color;
+  perf_finish();
+}
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
