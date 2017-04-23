@@ -15,9 +15,11 @@ function build_dom(n, elemName) {
   return ours;
 }
 
-function build_rule(selector, selectorRepeat, declaration) {
+function build_rule(selector, selectorRepeat, declaration, ruleRepeat) {
+  ruleRepeat = ruleRepeat || 1;
   var s = document.createElement("style");
-  s.textContent = Array(selectorRepeat).fill(selector).join(", ") + declaration;
+  var rule = Array(selectorRepeat).fill(selector).join(", ") + declaration;
+  s.textContent = Array(ruleRepeat).fill(rule).join("\n\n");
   return s;
 }
 

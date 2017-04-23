@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="util.js"></script>
+    <script>
+window.onload = function() {
+  /* Use many rules, instead of one rule with many selectors, to test per-rule overhead. */
+  document.head.appendChild(build_rule("span div", 1, '{ color: blue; } ', 10000));
+  let dom = build_dom(5000, "div");
+
+  perf_start();
+  document.body.appendChild(dom);
+  window.foo = window.getComputedStyle(document.body).color;
+  perf_finish();
+}
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
