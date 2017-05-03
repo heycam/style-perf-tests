@@ -9,8 +9,11 @@ window.onload = function() {
 
   let test_frame = document.getElementById("test_frame");
   let reports = [];
+
   set_status("Loading manifest");
+
   fetch("perf-reftest.list", { cache: "no-cache" })
+    .catch(ex => { throw `Failed to load manifest: ${ex}.  Your browser might need to run the perf-reftest harness from an http: or https: location.`; })
     .then(response => {
       if (!response.ok) {
         throw `Failed to load manifest: ${response.statusText}`;
