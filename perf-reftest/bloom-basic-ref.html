@@ -7,9 +7,10 @@ window.onload = function() {
   document.head.appendChild(build_rule("span > div", 10000, '{ color: blue; } '));
   let dom = build_dom(5000, "div");
 
+  flush_style();
   perf_start();
   document.body.appendChild(dom);
-  window.foo = window.getComputedStyle(document.body).color;
+  flush_style();
   perf_finish();
 }
     </script>
