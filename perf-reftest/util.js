@@ -47,10 +47,21 @@ function perf_finish() {
 
   // when running in talos report results; when running outside talos just alert
   if (window.tpRecordTime) {
+    // Running in talos.
     window.tpRecordTime(end - start, start);
+  } else if (window.parent && window.parent.report_perf_reftest_time) {
+    // Running in the perf-reftest runner.
+    window.parent.report_perf_reftest_time({ type: "time", value: end - start });
   } else {
+    // Running standalone; just alert.
     console.log(end);
     console.log(start);
     alert("Result: " + (end - start).toFixed(2) + " (ms)");
   }
+}
+
+if (window.parent.report_perf_reftest_time) {
+  window.addEventListener("error", function(e) {
+    window.parent.report_perf_reftest_time({ type: "error", value: e.message });
+  });
 }

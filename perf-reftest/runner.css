@@ -1,0 +1,14 @@
+body { font: 16px sans-serif; }
+h1 { font-size: 16px; }
+#status { background: #eee; padding: 0.5em 0; }
+#test_frame { margin-top: 1em; }
+#results { width: 100%; border-collapse: collapse; margin-top: 1em; }
+#results td { border: 1px solid #888; vertical-align: top; }
+#results td:first-child { text-transform: uppercase; width: 4em; text-align: center; }
+#results > tr.pass > td:first-child { background-color: lime; }
+#results > tr.fail > td:first-child { background-color: red; }
+#results td:nth-child(2) { white-space: pre; }
+#results th { text-align: left; vertical-align: bottom; }
+#results > tr > :nth-child(3),
+#results > tr > :nth-child(4) { width: 6em; white-space: nowrap; text-align: right; }
+#results td, #results th { padding: 0.25em; }
