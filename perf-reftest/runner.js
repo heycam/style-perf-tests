@@ -84,13 +84,22 @@ window.onload = function() {
         row.className = class_name;
         cells.forEach(s => {
           let cell = document.createElement(element_name);
-          cell.textContent = s;
+          if (typeof s == "object") {
+            cell.appendChild(s)
+          } else {
+            cell.textContent = s;
+          }
           row.appendChild(cell);
         });
         return row;
       }
       function format_time(result) {
         return result.type == "time" ? result.value.toFixed(2) + " ms" : "";
+      }
+      function esc(s) {
+        var e = document.createElement("span");
+        e.textContent = s;
+        return e.innerHTML;
       }
       let report_table = document.createElement("table");
       report_table.id = "results";
@@ -130,7 +139,9 @@ window.onload = function() {
             r.passed = false;
           }
         }
-        report_table.appendChild(make_row("td", r.passed ? "pass" : "fail", [r.status, `${r.cmp} ${r.test} ${r.ref}\n${r.message || ""}`, format_time(r.test_result), format_time(r.ref_result)]));
+        let message = document.createElement("span");
+        message.innerHTML = `${r.cmp} <a href="${r.test}">${r.test}</a> <a href="${r.ref}">${r.ref}</a>\n${esc(r.message || "")}`;
+        report_table.appendChild(make_row("td", r.passed ? "pass" : "fail", [r.status, message, format_time(r.test_result), format_time(r.ref_result)]));
       });
       set_status(`Finished: ${passing}/${reports.length} tests passed`);
       test_frame.remove();
