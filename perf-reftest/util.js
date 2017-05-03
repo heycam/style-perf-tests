@@ -23,6 +23,10 @@ function build_rule(selector, selectorRepeat, declaration, ruleRepeat) {
   return s;
 }
 
+function flush_style() {
+  getComputedStyle(document.documentElement).color;
+}
+
 function perf_start() {
   if (perf_data.start !== null) {
     throw "already started timing!";
