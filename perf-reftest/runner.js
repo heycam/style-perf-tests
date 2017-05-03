@@ -1,4 +1,4 @@
-const kTimeout = 5000;
+const kTimeout = 10000;
 const kEqualsTolerance = 0.2;  // longer of test and ref can take up to 20% more time
 const kEqualsMin = 50;  // if test and ref take < 50ms, consider them equal
 const kLessThanTolerance = 0.5;  // test must take < 50% of the ref running time
