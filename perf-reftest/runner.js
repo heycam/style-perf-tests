@@ -1,5 +1,6 @@
 const kTimeout = 5000;
-const kEqualsTolerance = 0.1;  // longer of test and ref can take up to 10% more time
+const kEqualsTolerance = 0.15;  // longer of test and ref can take up to 10% more time
+const kEqualsMin = 50;  // if test and ref take < 50ms, consider them equal
 const kLessThanTolerance = 0.5;  // test must take < 50% of the ref running time
 
 window.onload = function() {
@@ -112,7 +113,7 @@ window.onload = function() {
                 longer = r.ref_result.value;
                 shorter = r.test_result.value;
               }
-              passed = (longer / shorter) < (1 + kEqualsTolerance);
+              passed = (longer / shorter) < (1 + kEqualsTolerance) || longer < kEqualsMin;
               break;
             case "<":
               passed = r.test_result.value < r.ref_result.value * kLessThanTolerance;
