@@ -10,6 +10,7 @@ window.onload = function() {
 
   let test_frame = document.getElementById("test_frame");
   let reports = [];
+  let results_per_test = new Map;
 
   set_status("Loading manifest");
 
@@ -41,27 +42,39 @@ window.onload = function() {
         sequence = sequence
           .then(() => {
             set_status(`Running test ${i + 1}/${tests.length} (test: ${t[0]})`);
-            return new Promise((resolve, reject) => {
-              let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
-              test_frame.src = t[0];
-              window.report_perf_reftest_time = (test_result) => {
-                clearTimeout(id);
-                resolve(test_result);
-              }
-            });
+            if (results_per_test.has(t[0])) {
+              return results_per_test.get(t[0]);
+            } else {
+              return new Promise((resolve, reject) => {
+                let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
+                test_frame.src = t[0];
+                window.report_perf_reftest_time = (test_result) => {
+                  clearTimeout(id);
+                  results_per_test.set(t[0], test_result);
+                  resolve(test_result);
+                }
+              });
+            }
           })
           .then((test_result) => {
-            return new Promise((resolve, reject) => {
             set_status(`Running test ${i + 1}/${tests.length} (ref: ${t[0]})`);
-              let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
-              test_frame.src = t[1];
-              window.report_perf_reftest_time = (ref_result) => {
-                clearTimeout(id);
-                reports.push({ test: t[0], ref: t[1], cmp: t[2], test_result: test_result, ref_result: ref_result });
-                resolve();
-              };
-            });
+            if (results_per_test.has(t[1])) {
+              return [test_result, results_per_test.get(t[1])];
+            } else {
+              return new Promise((resolve, reject) => {
+                let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
+                test_frame.src = t[1];
+                window.report_perf_reftest_time = (ref_result) => {
+                  clearTimeout(id);
+                  results_per_test.set(t[1], ref_result);
+                  resolve([test_result, ref_result]);
+                };
+              });
+            }
           })
+          .then(([test_result, ref_result]) => {
+            reports.push({ test: t[0], ref: t[1], cmp: t[2], test_result: test_result, ref_result: ref_result });
+          });
       });
       return sequence;
     })
