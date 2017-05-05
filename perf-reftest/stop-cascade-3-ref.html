@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<style>
+.x, .y { vertical-align: 1em; font-size: 10px; }
+</style>
+<script src="util.js"></script>
+<script>
+window.onload = function() {
+  let root = document.createElement("div");
+  root.className = "x";
+  document.body.appendChild(root);
+  flush_style();
+  perf_start();
+  root.className = "y";
+  flush_style();
+  perf_finish();
+};
+</script>
+<body></body>
