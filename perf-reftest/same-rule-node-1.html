@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<style>
+.x, .y { vertical-align: 1em; font-size: 10px; }
+span { vertical-align: 1em; font-size: 1.1em; }
+</style>
+<script src="util.js"></script>
+<script>
+window.onload = function() {
+  let root = document.createElement("div");
+  root.className = "x";
+  for (let i = 0; i < 1000; i++) {
+    root.appendChild(build_dom(1024, "span"));
+  }
+  document.body.appendChild(root);
+  flush_style();
+  perf_start();
+  root.className = "y";
+  flush_style();
+  perf_finish();
+};
+</script>
+<body></body>

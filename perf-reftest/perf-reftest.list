@@ -8,3 +8,4 @@
 == some-descendants-1.html some-descendants-1-ref.html
 == only-children-1.html only-children-ref.html
 == dep-check-1.html dep-check-1-ref.html
+== same-rule-node-1.html same-rule-node-1-ref.html
