@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<script src="util.js"></script>
+<script>
+window.onload = function() {
+  let s = "";
+  s += ".x";
+  for (let i = 0; i < 8000; i++) {
+    s += "[y~=abc]";
+  }
+  s += " > span { background-color: yellow; }";
+  s += ".x > span { background-color: yellow; }";
+  var style = document.createElement("style");
+  style.textContent = s;
+  document.head.appendChild(style);
+  let divs = [];
+  for (let i = 0; i < 1000; i++) {
+    var div = document.createElement("div");
+    div.className = "x";
+    div.setAttribute("y", "abc def ghi");
+    document.body.appendChild(div);
+    divs.push(div);
+  }
+  flush_style();
+  perf_start();
+  for (let div of divs) {
+    div.className = "";
+  }
+  flush_style();
+  perf_finish();
+};
+</script>
+<body></body>
