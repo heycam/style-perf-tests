@@ -3,14 +3,25 @@ var perf_data = {
   end: null,
 }
 
-function build_dom(n, elemName) {
+function build_dom(n, elemName, options) {
+  // By default we use different elements in the DOM to defeat the style sharing
+  // cache, otherwise this sythetic DOM is trivially stylable by engines with that
+  // optimization.
+  options = options || {};
+  var elemNameLeft = options.elemNameLeft || "div";
+  var elemNameRight = options.elemNameRight || "span";
+
   var ours = document.createElement(elemName);
+  for (attr in options.attributes) {
+    ours.setAttribute(attr, options.attributes[attr]);
+  }
+
   if (n != 1) {
     var leftSize = Math.floor(n/2);
     var rightSize = Math.floor((n-1)/2);
-    ours.appendChild(build_dom(leftSize, elemName));
+    ours.appendChild(build_dom(leftSize, elemNameLeft, options));
     if (rightSize > 0)
-      ours.appendChild(build_dom(rightSize, elemName));
+      ours.appendChild(build_dom(rightSize, elemNameRight, options));
   }
   return ours;
 }

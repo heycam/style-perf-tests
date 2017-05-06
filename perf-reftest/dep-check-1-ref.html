@@ -4,26 +4,29 @@
 window.onload = function() {
   let s = "";
   s += ".x";
-  for (let i = 0; i < 8000; i++) {
-    s += "[y~=abc]";
+  for (let j = 0; j < 100; j++) {
+    s += "[y~=v" + j + "]";
   }
   s += " > span { background-color: yellow; }";
-  s += ".x > span { background-color: yellow; }";
   var style = document.createElement("style");
   style.textContent = s;
   document.head.appendChild(style);
-  let divs = [];
+  let els = [];
   for (let i = 0; i < 1000; i++) {
-    var div = document.createElement("div");
-    div.className = "x";
-    div.setAttribute("y", "abc def ghi");
-    document.body.appendChild(div);
-    divs.push(div);
+    var el = document.createElement("e" + i);
+    el.className = "x";
+    let val = "";
+    for (let j = 0; j < 100; j++) {
+      val += "v" + j + " ";
+    }
+    el.setAttribute("y", val);
+    document.body.appendChild(el);
+    els.push(el);
   }
   flush_style();
   perf_start();
-  for (let div of divs) {
-    div.className = "";
+  for (let el of els) {
+    el.className = "";
   }
   flush_style();
   perf_finish();

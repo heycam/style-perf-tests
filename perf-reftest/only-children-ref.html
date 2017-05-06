@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <style>
-.x { background-color: yellow; }
+.x > div, .x > span { background-color: yellow; }
 </style>
 <script src="util.js"></script>
 <script>
 window.onload = function() {
   let root = document.createElement("div");
-  root.appendChild(build_dom(200000, "div"));
+  root.appendChild(document.createElement("div"));
   document.body.appendChild(root);
   flush_style();
   perf_start();

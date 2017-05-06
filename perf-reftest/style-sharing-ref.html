@@ -4,8 +4,8 @@
     <script src="util.js"></script>
     <script>
 window.onload = function() {
-  document.head.appendChild(build_rule("body > .foo > .foo > .foo", 1000, '{ color: blue; } '));
-  let dom = build_dom(5000, "div", { attributes: {'class': 'foo' } });
+  document.head.appendChild(build_rule("div", 1, '{ color: blue; } '));
+  let dom = build_dom(2000, "div");
 
   flush_style();
   perf_start();
