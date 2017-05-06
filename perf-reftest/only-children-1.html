@@ -6,7 +6,7 @@
 <script>
 window.onload = function() {
   let root = document.createElement("div");
-  root.appendChild(build_dom(200000, "div"));
+  root.appendChild(build_dom(100000, "div"));
   document.body.appendChild(root);
   flush_style();
   perf_start();
