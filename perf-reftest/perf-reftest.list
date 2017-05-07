@@ -14,3 +14,5 @@
 == slow-selector-1.html slow-selector-1-ref.html
 == slow-selector-2.html slow-selector-2-ref.html
 == style-attr-1.html style-attr-1-ref.html
+== coalesce-1.html coalesce-ref.html
+== coalesce-2.html coalesce-ref.html
