@@ -8,9 +8,18 @@ window.onload = function() {
     document.getElementById("status").textContent = text;
   }
 
+  function query(key) {
+    return location.search.substr(1)
+      .split("&")
+      .filter(v => v.startsWith(key + "="))
+      .map(s => s.replace(/^[^=]*=/, ""))[0];
+  }
+
   let test_frame = document.getElementById("test_frame");
   let reports = [];
   let results_per_test = new Map;
+
+  let single_test = query("test");
 
   set_status("Loading manifest");
 
@@ -31,7 +40,9 @@ window.onload = function() {
           if (!m) {
             throw `Failed to load manifest: syntax error on line ${i + 1}`;
           }
-          tests.push([m[2], m[3], m[1]]);
+          if (single_test && m[2] == single_test) {
+            tests.push([m[2], m[3], m[1]]);
+          }
         }
       });
       return tests;
