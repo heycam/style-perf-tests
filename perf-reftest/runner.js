@@ -40,7 +40,7 @@ window.onload = function() {
           if (!m) {
             throw `Failed to load manifest: syntax error on line ${i + 1}`;
           }
-          if (single_test && m[2] == single_test) {
+          if (!single_test || m[2] == single_test) {
             tests.push([m[2], m[3], m[1]]);
           }
         }
