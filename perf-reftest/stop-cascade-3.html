@@ -14,10 +14,10 @@ window.onload = function() {
     root.appendChild(build_dom(1024, "p"));
   }
   document.body.appendChild(root);
-  flush_style();
+  flush_style(root);
   perf_start();
   root.className = "y";
-  flush_style();
+  flush_style(root);
   perf_finish();
 };
 </script>

@@ -19,10 +19,10 @@ window.onload = function() {
   let leftmost = find_leftmost(root);
   leftmost.className = "y";
   document.body.appendChild(root);
-  flush_style();
+  flush_style(root);
   perf_start();
   document.body.className = "x";
-  flush_style();
+  flush_style(root);
   perf_finish();
 };
 </script>

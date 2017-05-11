@@ -8,10 +8,10 @@ window.onload = function() {
   let root = document.createElement("div");
   root.appendChild(document.createElement("div"));
   document.body.appendChild(root);
-  flush_style();
+  flush_style(root);
   perf_start();
   root.firstChild.className = "x";
-  flush_style();
+  flush_style(root);
   perf_finish();
 };
 </script>

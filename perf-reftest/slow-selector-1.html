@@ -12,10 +12,10 @@ window.onload = function() {
   root.appendChild(first);
   root.appendChild(build_dom(64000, "div"));
   document.body.appendChild(root);
-  flush_style();
+  flush_style(root);
   perf_start();
   first.firstChild.remove();
-  flush_style();
+  flush_style(root);
   perf_finish();
 };
 </script>

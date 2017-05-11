@@ -34,8 +34,8 @@ function build_rule(selector, selectorRepeat, declaration, ruleRepeat) {
   return s;
 }
 
-function flush_style() {
-  getComputedStyle(document.documentElement).color;
+function flush_style(element) {
+  getComputedStyle(element || document.documentElement).color;
 }
 
 function perf_start() {

@@ -25,12 +25,12 @@ window.onload = function() {
     document.body.appendChild(el);
     els.push(el);
   }
-  flush_style();
+  flush_style(els[0]);
   perf_start();
   for (let el of els) {
     el.className = "";
   }
-  flush_style();
+  flush_style(els[0]);
   perf_finish();
 };
 </script>

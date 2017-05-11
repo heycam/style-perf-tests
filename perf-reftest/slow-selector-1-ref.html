@@ -11,10 +11,10 @@ window.onload = function() {
   first.appendChild(document.createElement("div"));
   root.appendChild(first);
   document.body.appendChild(root);
-  flush_style();
+  flush_style(root);
   perf_start();
   first.firstChild.remove();
-  flush_style();
+  flush_style(root);
   perf_finish();
 };
 </script>
