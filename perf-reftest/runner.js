@@ -1,4 +1,4 @@
-const kTimeout = 10000;
+const kTimeout = 20000;
 const kEqualsTolerance = 0.2;  // longer of test and ref can take up to 20% more time
 const kEqualsMin = 50;  // if test and ref take < 50ms, consider them equal
 const kLessThanTolerance = 0.5;  // test must take < 50% of the ref running time
@@ -55,36 +55,36 @@ window.onload = function() {
             set_status(`Running test ${i + 1}/${tests.length} (test: ${t[0]})`);
             if (results_per_test.has(t[0])) {
               return results_per_test.get(t[0]);
-            } else {
-              return new Promise((resolve, reject) => {
-                let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
-                test_frame.src = t[0];
-                window.report_perf_reftest_time = (test_result) => {
-                  clearTimeout(id);
-                  results_per_test.set(t[0], test_result);
-                  resolve(test_result);
-                }
-              });
             }
+            return new Promise((resolve, reject) => {
+              let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
+              test_frame.src = t[0];
+              window.report_perf_reftest_time = (test_result) => {
+                clearTimeout(id);
+                results_per_test.set(t[0], test_result);
+                resolve(test_result);
+              }
+            });
           })
           .then((test_result) => {
             set_status(`Running test ${i + 1}/${tests.length} (ref: ${t[0]})`);
             if (results_per_test.has(t[1])) {
               return [test_result, results_per_test.get(t[1])];
-            } else {
-              return new Promise((resolve, reject) => {
-                let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
-                test_frame.src = t[1];
-                window.report_perf_reftest_time = (ref_result) => {
-                  clearTimeout(id);
-                  results_per_test.set(t[1], ref_result);
-                  resolve([test_result, ref_result]);
-                };
-              });
             }
+            return new Promise((resolve, reject) => {
+              let id = setTimeout(() => window.report_perf_reftest_time({ type: "timeout" }), kTimeout);
+              test_frame.src = t[1];
+              window.report_perf_reftest_time = (ref_result) => {
+                clearTimeout(id);
+                results_per_test.set(t[1], ref_result);
+                resolve([test_result, ref_result]);
+              };
+            });
           })
           .then(([test_result, ref_result]) => {
+            /* eslint-disable */
             reports.push({ test: t[0], ref: t[1], cmp: t[2], test_result: test_result, ref_result: ref_result });
+            /* eslint-enable */
           });
       });
       return sequence;
@@ -164,7 +164,9 @@ window.onload = function() {
           }
         }
         let message = document.createElement("span");
+        /* eslint-disable */
         message.innerHTML = `${r.cmp} <a href="${r.test}">${r.test}</a> <a href="${r.ref}">${r.ref}</a>\n${esc(r.message || "")}`;
+        /* eslint-enable */
         report_table.appendChild(make_row("td", r.passed ? "pass" : "fail", [r.status, message, format_time(r.test_result), format_time(r.ref_result)]));
       });
       set_status(`Finished: ${passing}/${reports.length} tests passed`);

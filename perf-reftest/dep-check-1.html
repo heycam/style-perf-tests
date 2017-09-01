@@ -6,9 +6,9 @@ window.onload = function() {
   for (let i = 0; i < 50; i++) {
     s += ".x";
     for (let j = 0; j < 100; j++) {
-      s += "[y~=v" + j +"]";
+      s += "[y~=v" + j + "]";
     }
-    s += " > span { background-color: yellow; }";
+    s += " { background-color: yellow; }";
   }
   var style = document.createElement("style");
   style.textContent = s;

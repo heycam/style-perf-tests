@@ -4,7 +4,7 @@
     <script src="util.js"></script>
     <script>
 window.onload = function() {
-  document.head.appendChild(build_rule("caption#foo", 1, '{ color: blue; } '));
+  document.head.appendChild(build_rule("caption#foo", 1, "{ color: blue; } "));
   let dom = build_dom(2048, "div");
   let p = dom;
   for (var i = 0; i < 5; ++i ) {
@@ -17,8 +17,8 @@ window.onload = function() {
 
   perf_start();
   var state = true;
-  for (var i = 0; i < 100000; ++i) {
-    elem.setAttribute('id', state ? "" : "foo");
+  for (i = 0; i < 100000; ++i) {
+    elem.setAttribute("id", state ? "" : "foo");
     state = !state;
     window.getComputedStyle(elem).color;
   }
