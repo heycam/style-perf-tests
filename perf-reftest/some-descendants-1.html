@@ -15,7 +15,7 @@ window.onload = function() {
   document.head.appendChild(build_rule("div", 1, "{ color: blue; }", 100));
   let root = document.createElement("div");
   root.className = "root";
-  root.appendChild(build_dom(500000, "div"));
+  root.appendChild(build_dom(50000, "div"));
   let leftmost = find_leftmost(root);
   leftmost.className = "y";
   document.body.appendChild(root);
