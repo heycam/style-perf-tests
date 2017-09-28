@@ -13,7 +13,7 @@ function set_class(n) {
   n.className = "x";
 }
 window.onload = function() {
-  let root = build_dom(50000, "div");
+  let root = build_dom(5000, "div");
   document.body.appendChild(root);
   flush_style(root);
   set_class(root);
