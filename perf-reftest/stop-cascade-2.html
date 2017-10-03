@@ -7,7 +7,7 @@ div, span { border-left-color: inherit; }
 <script>
 window.onload = function() {
   let roots = [];
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 200; i++) {
     let root = document.createElement("div");
     root.appendChild(build_dom(1024, "div"));
     roots.push(root);
@@ -15,8 +15,10 @@ window.onload = function() {
   }
   flush_style(roots[0]);
   perf_start();
-  for (let root of roots) {
-    root.className = "x";
+  for (x in ["x", "", "x"]) {
+    for (let root of roots) {
+      root.className = x;
+    }
   }
   flush_style(roots[0]);
   perf_finish();
